@@ -35,6 +35,11 @@ class ViewController: UIViewController {
         errorLabel.textAlignment = NSTextAlignment.center
     }
     
+    @IBAction func setupInfo(_ sender: Any) {
+            if let url = URL(string: "https://github.com/wantyapps/siteAPI") {
+               UIApplication.shared.open(url)
+           }
+    }
     @IBAction func sendButton(_ sender: Any) {
         let url = URL(string: addressText.text ?? "")
         guard let requestUrl = url else { return }
@@ -59,10 +64,14 @@ class ViewController: UIViewController {
                         if success as? Int == 1 {
                             DispatchQueue.main.async {
                                 self.changeErrorLabel("Success: true")
+                                let generator = UINotificationFeedbackGenerator()
+                                generator.notificationOccurred(.success)
                             }
                         } else {
                             DispatchQueue.main.async {
                                 self.changeErrorLabel("Success: false")
+                                let generator = UINotificationFeedbackGenerator()
+                                generator.notificationOccurred(.error)
                             }
                         }
                     }
